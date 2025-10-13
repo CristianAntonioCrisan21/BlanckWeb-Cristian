@@ -1,0 +1,7 @@
+<!-- Este es un placeholder. Necesitarás reemplazarlo con un archivo .ico real -->
+<!-- Para generar un favicon.ico puedes usar: -->
+<!-- 1. https://favicon.io/ -->
+<!-- 2. https://realfavicongenerator.net/ -->
+<!-- 3. Convertir tu logo usando herramientas online -->
+
+<!-- Mientras tanto, el favicon.svg que creé funcionará en navegadores modernos -->
