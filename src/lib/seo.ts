@@ -3,7 +3,7 @@ export const siteConfig = {
   title: "BlanckWeb - Webs rápidas y minimalistas para atraer clientes",
   description: "Hecho en Lleida. Páginas que cargan en milisegundos y convierten visitas en clientes. Diseño claro, SEO local y soporte cercano.",
   url: "https://[DOMAIN]",
-  email: "[EMAIL]",
+  email: "info@blanckweb.eu",
   whatsapp: "[WHATSAPP]",
   location: "Guissona, Lleida",
   keywords: ["diseño web", "páginas web", "SEO local", "Lleida", "Guissona", "webs rápidas", "minimalista"],

@@ -181,13 +181,13 @@ export function Contact() {
               <CardContent className="space-y-4">
                 <div className="space-y-3">
                   <a 
-                    href="mailto:[EMAIL]"
+                    href="mailto:info@blanckweb.eu"
                     className="flex items-center space-x-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors group"
                   >
                     <Mail className="h-5 w-5 text-sky-500" />
                     <div>
                       <div className="font-medium group-hover:text-sky-600 transition-colors">Email</div>
-                      <div className="text-sm text-muted-foreground">[EMAIL]</div>
+                      <div className="text-sm text-muted-foreground">info@blanckweb.eu</div>
                     </div>
                   </a>
 
@@ -208,7 +208,7 @@ export function Contact() {
                     <MapPin className="h-5 w-5 text-sky-500" />
                     <div>
                       <div className="font-medium">Ubicación</div>
-                      <div className="text-sm text-muted-foreground">[LOCATION]</div>
+                      <div className="text-sm text-muted-foreground">España, Cataluña</div>
                     </div>
                   </div>
                 </div>
