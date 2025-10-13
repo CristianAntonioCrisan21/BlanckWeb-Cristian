@@ -95,7 +95,7 @@ export function Hero() {
                   <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
                   <div className="w-3 h-3 bg-green-400 rounded-full"></div>
                   <div className="flex-1 bg-muted rounded px-3 py-1 text-xs text-muted-foreground text-center">
-                    ejemplo.blanckweb.com
+                    blanckweb.eu
                   </div>
                 </div>
                 <div className="p-6 space-y-4">
