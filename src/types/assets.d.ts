@@ -27,3 +27,14 @@ declare module "*.webp" {
   const value: string;
   export default value;
 }
+
+// Vite environment variables
+interface ImportMetaEnv {
+  readonly VITE_EMAILJS_SERVICE_ID: string;
+  readonly VITE_EMAILJS_TEMPLATE_ID: string;
+  readonly VITE_EMAILJS_PUBLIC_KEY: string;
+}
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv;
+}

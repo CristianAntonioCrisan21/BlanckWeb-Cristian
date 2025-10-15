@@ -7,12 +7,13 @@ import { Textarea } from "../ui/textarea"
 import { Label } from "../ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { Checkbox } from "../ui/checkbox"
-import { Mail, Phone, MapPin, MessageCircle } from "lucide-react"
+import { Mail, Phone, MapPin, MessageCircle, Loader2, CheckCircle, AlertCircle } from "lucide-react"
 import { motion } from "motion/react"
 import { useState } from "react"
+import { sendContactEmail, type ContactFormData } from "../../lib/emailjs"
 
 export function Contact() {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: "",
     company: "",
     email: "",
@@ -22,11 +23,46 @@ export function Contact() {
     privacy: false
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form data:", formData)
-    // Aquí se integraría con la API o servicio de email
-    alert("Mensaje enviado! Te contactaremos pronto.")
+    
+    // Validar formulario
+    if (!formData.name || !formData.email || !formData.budget || !formData.privacy) {
+      setSubmitStatus('error')
+      return
+    }
+
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    try {
+      console.log("Enviando formulario con datos:", formData)
+      const success = await sendContactEmail(formData)
+      
+      if (success) {
+        setSubmitStatus('success')
+        // Limpiar formulario
+        setFormData({
+          name: "",
+          company: "",
+          email: "",
+          phone: "",
+          budget: "",
+          message: "",
+          privacy: false
+        })
+      } else {
+        setSubmitStatus('error')
+      }
+    } catch (error) {
+      console.error('Error al enviar formulario:', error)
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleInputChange = (field: string, value: string | boolean) => {
@@ -157,10 +193,37 @@ export function Contact() {
                     type="submit" 
                     size="lg" 
                     className="w-full bg-sky-500 hover:bg-sky-600"
-                    disabled={!formData.privacy}
+                    disabled={!formData.privacy || isSubmitting}
                   >
-                    Enviar solicitud
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                        Enviando...
+                      </>
+                    ) : submitStatus === 'success' ? (
+                      <>
+                        <CheckCircle className="h-4 w-4 mr-2" />
+                        ¡Enviado!
+                      </>
+                    ) : (
+                      'Enviar solicitud'
+                    )}
                   </Button>
+
+                  {/* Mensajes de estado */}
+                  {submitStatus === 'success' && (
+                    <div className="flex items-center space-x-2 text-green-600 bg-green-50 p-3 rounded-lg">
+                      <CheckCircle className="h-5 w-5" />
+                      <span>¡Mensaje enviado correctamente! Te responderemos en 24h.</span>
+                    </div>
+                  )}
+
+                  {submitStatus === 'error' && (
+                    <div className="flex items-center space-x-2 text-red-600 bg-red-50 p-3 rounded-lg">
+                      <AlertCircle className="h-5 w-5" />
+                      <span>Error al enviar el mensaje. Por favor, verifica los campos obligatorios.</span>
+                    </div>
+                  )}
                 </form>
               </CardContent>
             </Card>
