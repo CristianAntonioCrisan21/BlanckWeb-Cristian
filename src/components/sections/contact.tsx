@@ -192,7 +192,7 @@ export function Contact() {
                   </a>
 
                   <a 
-                    href="https://wa.me/[WHATSAPP]"
+                    href="https://wa.me/34642168097"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center space-x-3 p-3 rounded-lg border border-border hover:bg-muted/50 transition-colors group"
@@ -200,7 +200,7 @@ export function Contact() {
                     <MessageCircle className="h-5 w-5 text-green-500" />
                     <div>
                       <div className="font-medium group-hover:text-green-600 transition-colors">WhatsApp</div>
-                      <div className="text-sm text-muted-foreground">[WHATSAPP]</div>
+                      <div className="text-sm text-muted-foreground">+34 642 168 097</div>
                     </div>
                   </a>
 
