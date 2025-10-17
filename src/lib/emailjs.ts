@@ -2,13 +2,27 @@ import emailjs from '@emailjs/browser';
 
 // Configuración de EmailJS
 const EMAILJS_CONFIG = {
-  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID || 'service_blanckweb',
-  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'template_blanckweb',
-  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY || 'your_public_key'
+  serviceId: import.meta.env.VITE_EMAILJS_SERVICE_ID,
+  templateId: import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+  publicKey: import.meta.env.VITE_EMAILJS_PUBLIC_KEY
 };
 
-// Inicializar EmailJS
-emailjs.init(EMAILJS_CONFIG.publicKey);
+// Debug: Verificar que las variables de entorno se cargaron
+console.log('EmailJS Config:', {
+  serviceId: EMAILJS_CONFIG.serviceId,
+  templateId: EMAILJS_CONFIG.templateId,
+  publicKey: EMAILJS_CONFIG.publicKey ? '✓ Configurada' : '✗ Falta',
+  publicKeyLength: EMAILJS_CONFIG.publicKey?.length
+});
+
+// Validar que las credenciales existen
+if (!EMAILJS_CONFIG.publicKey || !EMAILJS_CONFIG.serviceId || !EMAILJS_CONFIG.templateId) {
+  console.error('❌ Error: Faltan credenciales de EmailJS en el archivo .env');
+  console.error('Asegúrate de tener configurado:');
+  console.error('- VITE_EMAILJS_SERVICE_ID');
+  console.error('- VITE_EMAILJS_TEMPLATE_ID');
+  console.error('- VITE_EMAILJS_PUBLIC_KEY');
+}
 
 export interface ContactFormData {
   name: string;
@@ -40,14 +54,17 @@ export const sendContactEmail = async (formData: ContactFormData): Promise<boole
     };
 
     console.log('Enviando email con datos:', templateParams);
+    console.log('Usando Service ID:', EMAILJS_CONFIG.serviceId);
+    console.log('Usando Template ID:', EMAILJS_CONFIG.templateId);
 
     const response = await emailjs.send(
       EMAILJS_CONFIG.serviceId,
       EMAILJS_CONFIG.templateId,
-      templateParams
+      templateParams,
+      EMAILJS_CONFIG.publicKey // ← Agregar la publicKey como 4to parámetro
     );
 
-    console.log('Email enviado exitosamente:', response);
+    console.log('✅ Email enviado exitosamente:', response);
     return response.status === 200;
   } catch (error) {
     console.error('Error al enviar email:', error);
